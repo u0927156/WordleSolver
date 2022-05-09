@@ -4,24 +4,25 @@ import numpy as np
 import re
 import wordle_solver_utils as wordle_utils
 
-filename = "./wordle-list-main/words"
 
-with open(filename) as file:
-    words = file.readlines()
-    words = [line.rstrip() for line in words]
+def load_words():
+    filename = "./wordle-list-main/words"
 
-letter_dict = {}
+    with open(filename) as file:
+        words = file.readlines()
+        words = [line.rstrip() for line in words]
 
-for word in words:
-    for char in word:
+    letter_dict = {}
 
-        if char not in letter_dict.keys():
-            letter_dict[char] = 1
-        else:
-            letter_dict[char] += 1
+    for word in words:
+        for char in word:
 
-letter_df = pd.DataFrame(letter_dict, index=[0]).T
-letter_df = letter_df.sort_values(letter_df.columns[0], ascending=False)
+            if char not in letter_dict.keys():
+                letter_dict[char] = 1
+            else:
+                letter_dict[char] += 1
+
+    return words, letter_dict
 
 
 def remove_words_with_forbidden_characters(words, list_of_forbidden_chars):
@@ -98,6 +99,8 @@ def score_words(words, scoring_dict):
 
 
 def main():
+
+    words, letter_dict = load_words()
     for iter in range(6):
 
         while True:
@@ -124,6 +127,7 @@ def main():
                     raise ValueError
                 if result_of_guess.lower() == "ggggg":
                     print("Congratulations!")
+                    quit()
             except ValueError:
                 print("Results are the wrong length")
 
