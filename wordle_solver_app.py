@@ -149,7 +149,7 @@ def main():
             print("Sorry, we give up!")
             quit()
 
-        print(f"Top 7 Options: {sorted_options} from {len(sorted_options)}")
+        print(f"Top 7 Options: {sorted_options}")
 
 
 if __name__ == "__main__":
